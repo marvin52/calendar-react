@@ -27,18 +27,18 @@ export default class Calendar {
 
   getYear(year) {
     return [
-      { name : this.months[0], days : 31 },
-      { name : this.months[1], days : this.leapYear(year) ? 29 : 28 },
-      { name : this.months[2], days : 31 },
-      { name : this.months[3], days : 30 },
-      { name : this.months[4], days : 31 },
-      { name : this.months[5], days : 30 },
-      { name : this.months[6], days : 31 },
-      { name : this.months[7], days : 31 },
-      { name : this.months[8], days : 30 },
-      { name : this.months[9], days : 31 },
-      { name : this.months[10], days : 30 },
-      { name : this.months[11], days : 31 }
+      { year, name : this.months[0], month: 0 , days : 31 },
+      { year, name : this.months[1], month: 1 , days : this.leapYear(year) ? 29 : 28 },
+      { year, name : this.months[2], month: 2 , days : 31 },
+      { year, name : this.months[3], month: 3 , days : 30 },
+      { year, name : this.months[4], month: 4 , days : 31 },
+      { year, name : this.months[5], month: 5 , days : 30 },
+      { year, name : this.months[6], month: 6 , days : 31 },
+      { year, name : this.months[7], month: 7 , days : 31 },
+      { year, name : this.months[8], month: 8 , days : 30 },
+      { year, name : this.months[9], month: 9 , days : 31 },
+      { year, name : this.months[10], month: 10 , days : 30 },
+      { year, name : this.months[11], month: 11 , days : 31 }
     ]
   }
 
@@ -55,7 +55,7 @@ export default class Calendar {
   renderMonth(monthObject) {
 
     let monthObj = monthObject || {},
-        { year, month } = monthObj,
+        { year, month, name : monthName } = monthObj,
         monthArray = [];
 
     for(let day = 1; day <= monthObj.days; day++){
@@ -135,7 +135,19 @@ export default class Calendar {
       break;
     }
 
-    return monthArray
+    //return monthArray
+
+    var weeks = [];
+
+    while (monthArray.length > 0)
+        weeks.push(monthArray.splice(0, 7));
+
+    return {
+      year,
+      month,
+      monthName,
+      weeks
+    }
   }
 
 }
