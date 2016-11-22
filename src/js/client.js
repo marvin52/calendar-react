@@ -1,22 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Calendar from "./helpers/Calendar"
+import Month from "./components/Month"
 
 class Layout extends React.Component {
 	render(){
+		let months = []
+		this.props.year.forEach(( month, index ) => {
+			months.push( <Month key={index} month={month}/> )
+		})
 		return (
-			<h1>React test!</h1>
+			<div className="calendar">
+				{months}
+			</div>
 		)
 	}
 }
 
 const app = document.getElementById('app');
-
-ReactDOM.render(<Layout/>, app);
-
-
 const calendar = new Calendar();
 
-let month = calendar.getMonth(2016, 1);
+let year = calendar.getYear(2036);
 
-console.log(calendar.renderMonth(month))
+ReactDOM.render(<Layout year={year}/>, app);
