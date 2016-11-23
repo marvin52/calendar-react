@@ -19,14 +19,14 @@ export default class Month extends React.Component {
 		})
 
 		return (
-			<table className="month">
+			<table className="calendar__month">
 				<thead>
-					<tr>
+					<tr className="calendar__month-name">
 						<td colSpan={7}>
 							{this.props.month.name}
 						</td>
 					</tr>
-					<tr>
+					<tr className="calendar__week-days">
 						<td>S</td>
 						<td>T</td>
 						<td>Q</td>
@@ -36,7 +36,7 @@ export default class Month extends React.Component {
 						<td>D</td>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody className="calendar__weeks">
 					{weeks}
 				</tbody>
 			</table>

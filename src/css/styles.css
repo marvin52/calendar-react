@@ -1,14 +1,33 @@
 html, body {
 	background : #fefefe;
 }
+.controls {
+	width : 100%;
+	display: block
+}
 .calendar {
 	display: flex;
 	flex-wrap: wrap;
 	background: #fff;
+	justify-content: space-around;
 }
-.month {
-	border : 1px solid red;
+.calendar__month {
 	display: inline-block;
 	padding: 10px 15px;
-
+	height: 240px;
+}
+.calendar__month-name {
+	text-align: center;
+	background : #447;
+	height: 25px;
+	color: white;
+}
+.calendar__week-days {
+	background: #ccddcc;
+	text-align: center;
+}
+.calendar__weeks td {
+	background: #fafafa;
+	text-align: center;
+	padding: 5px;
 }
