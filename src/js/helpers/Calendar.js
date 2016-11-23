@@ -52,6 +52,7 @@ export default class Calendar {
     }
   }
 
+
   renderMonth(monthObject) {
 
     let monthObj = monthObject || {},
@@ -63,79 +64,48 @@ export default class Calendar {
       monthArray.push({day, weekDay, year, month})
     }
 
+    /**
+     * add null days to fill the begin of the week
+     * @param  {Number} weekDay - Object Date representation of the week day
+     * @return {Boolean}
+     */
+    let mus = weekDay => {
+      while(weekDay-- >= 1)
+        monthArray.unshift(
+          {day : null, weekDay, year, month}
+        )
+    }
+
+    /**
+     * add null days to fill the end of the week
+     * @param  {Number} val - Object Date representation of the week day
+     * @return {Boolean}
+     */
+    const mps = val => {
+      let value = (val === 0)? 7 : val
+      while(value++ <= 7){
+        let weekDay = ( value == 7 ) ? 0 : value
+        monthArray.push({ day : null, weekDay, year, month })
+      }
+    }
+
     switch(monthArray[0].weekDay){
-      case 2:
-        monthArray.unshift({day : null, weekDay : 1, year, month})
-      break;
-      case 3:
-        monthArray.unshift({day : null, weekDay : 2, year, month})
-        monthArray.unshift({day : null, weekDay : 1, year, month})
-      break;
-      case 4:
-        monthArray.unshift({day : null, weekDay : 3, year, month})
-        monthArray.unshift({day : null, weekDay : 2, year, month})
-        monthArray.unshift({day : null, weekDay : 1, year, month})
-      break;
-      case 5:
-        monthArray.unshift({day : null, weekDay : 4, year, month})
-        monthArray.unshift({day : null, weekDay : 3, year, month})
-        monthArray.unshift({day : null, weekDay : 2, year, month})
-        monthArray.unshift({day : null, weekDay : 1, year, month})
-      break;
-      case 6:
-        monthArray.unshift({day : null, weekDay : 5, year, month})
-        monthArray.unshift({day : null, weekDay : 4, year, month})
-        monthArray.unshift({day : null, weekDay : 3, year, month})
-        monthArray.unshift({day : null, weekDay : 2, year, month})
-        monthArray.unshift({day : null, weekDay : 1, year, month})
-      break;
-      case 0:
-        monthArray.unshift({day : null, weekDay : 6, year, month})
-        monthArray.unshift({day : null, weekDay : 5, year, month})
-        monthArray.unshift({day : null, weekDay : 4, year, month})
-        monthArray.unshift({day : null, weekDay : 3, year, month})
-        monthArray.unshift({day : null, weekDay : 2, year, month})
-        monthArray.unshift({day : null, weekDay : 1, year, month})
-      break;
+      case 2: mus(1); break;
+      case 3: mus(2); break;
+      case 4: mus(3); break;
+      case 5: mus(4); break;
+      case 6: mus(5); break;
+      case 0: mus(6); break;
     }
 
     switch(monthArray[monthArray.length - 1].weekDay){
-      case 1:
-        monthArray.push({day : null, weekDay : 2, year, month})
-        monthArray.push({day : null, weekDay : 3, year, month})
-        monthArray.push({day : null, weekDay : 4, year, month})
-        monthArray.push({day : null, weekDay : 5, year, month})
-        monthArray.push({day : null, weekDay : 6, year, month})
-        monthArray.push({day : null, weekDay : 0, year, month})
-      break;
-      case 2:
-        monthArray.push({day : null, weekDay : 3, year, month})
-        monthArray.push({day : null, weekDay : 4, year, month})
-        monthArray.push({day : null, weekDay : 5, year, month})
-        monthArray.push({day : null, weekDay : 6, year, month})
-        monthArray.push({day : null, weekDay : 0, year, month})
-      break;
-      case 3:
-        monthArray.push({day : null, weekDay : 4, year, month})
-        monthArray.push({day : null, weekDay : 5, year, month})
-        monthArray.push({day : null, weekDay : 6, year, month})
-        monthArray.push({day : null, weekDay : 0, year, month})
-      break;
-      case 4:
-        monthArray.push({day : null, weekDay : 5, year, month})
-        monthArray.push({day : null, weekDay : 6, year, month})
-        monthArray.push({day : null, weekDay : 0, year, month})
-      break;
-      case 5:
-        monthArray.push({day : null, weekDay : 6, year, month})
-        monthArray.push({day : null, weekDay : 0, year, month})
-      break;
-      case 6:
-        monthArray.push({day : null, weekDay : 0, year, month})
-      break;
+      case 1: mps(2); break;
+      case 2: mps(3); break;
+      case 3: mps(4); break;
+      case 4: mps(5); break;
+      case 5: mps(6); break;
+      case 6: mps(0); break;
     }
-
-    //return monthArray
 
     var weeks = [];
 

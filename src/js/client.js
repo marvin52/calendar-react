@@ -32,6 +32,7 @@ class Layout extends React.Component {
 		year.forEach(( month, index ) => {
 			months.push( <Month key={index} month={month}/> )
 		})
+
 		return (
 			<div className="container">
 				<div className="controls">
