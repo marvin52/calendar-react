@@ -30,4 +30,10 @@ html, body {
 	background: #fafafa;
 	text-align: center;
 	padding: 5px;
+	border: 1px solid #ccc;
+}
+.calendar__day {}
+.calendar__day--has-holiday {
+	background: #a7e8bc !important;
+	color: white;
 }

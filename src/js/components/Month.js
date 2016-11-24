@@ -15,7 +15,7 @@ export default class Month extends React.Component {
 		let renderMonth = this.calendar.renderMonth(month)
 
 		renderMonth.weeks.forEach((item, index) => {
-			weeks.push(<Week key={index} week={item}/>)
+			weeks.push(<Week key={index} week={item} holidays={this.props.holidays}/>)
 		})
 
 		return (
