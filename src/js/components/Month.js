@@ -23,7 +23,7 @@ export default class Month extends React.Component {
 				<thead>
 					<tr className="calendar__month-name">
 						<td colSpan={7}>
-							{this.props.month.name}
+							{this.props.month.name} {this.props.month.year}
 						</td>
 					</tr>
 					<tr className="calendar__week-days">
