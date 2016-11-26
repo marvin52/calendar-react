@@ -11,27 +11,29 @@ html, body {
 	background: #fff;
 	justify-content: space-around;
 }
-.calendar__month {
+.calendar__month, .calendar__day-view {
 	padding: 10px 15px;
 	height: 240px;
 }
-.calendar__month-name {
+.calendar__day-view {
+	width: 270px;
+}
+.calendar__month-name, .calendar__year-month-name {
 	text-align: center;
 	background : #447;
 	height: 25px;
 	color: white;
 }
-.calendar__week-days {
+.calendar__week-days, .calendar__day {
 	background: #ccddcc;
 	text-align: center;
 }
-.calendar__weeks td {
+.calendar__weeks td, .calendar__day td {
 	background: #fafafa;
 	text-align: center;
 	padding: 5px;
 	border: 1px solid #ccc;
 }
-.calendar__day {}
 .calendar__day--has-holiday {
 	background: #a7e8bc !important;
 	color: white;
@@ -39,4 +41,16 @@ html, body {
 .holiday-sub{
 	font-size: 10px;
     line-height: 6px;
+}
+
+.calendar__day-view .calendar__day td{
+	font-size: 100px;
+}
+
+.calendar__day-view .calendar__year-month-name td{
+	font-size: 20px;
+	padding: 10px;
+}
+.calendar__day-view .calendar__year-name {
+	font-size: 40px;
 }

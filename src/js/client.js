@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Calendar from "./helpers/Calendar"
 import Holiday from "./helpers/Holiday"
 import Month from "./components/Month"
+import Day from "./components/Day"
 import SelectCountry from "./components/SelectCountry"
 
 
@@ -40,13 +41,23 @@ class Layout extends React.Component {
 	    } else if (str.match(/(true)/)[1]) {
 	      return true;
 	    }
+	    return false
 	  }
 
+	increaseDay(){
+		let day = this.calendar.getNextDay(this.state)
+		this.setState(day)
+	}
+
+	decreaseDay(){
+		let day = this.calendar.getPrevDay(this.state)
+		this.setState(day)
+	}
 
 	increaseMonth() {
 		let month = (this.state.month == 11)? 0 : this.state.month + 1;
 		let year = (this.state.month == 11)? this.state.year + 1 : this.state.year;
-		this.setState({ month, year }, this.getHolidays)
+		this.setState({ month, year, day : 1 }, this.getHolidays)
 	}
 
 
@@ -54,7 +65,7 @@ class Layout extends React.Component {
 	decreaseMonth() {
 		let month = (this.state.month == 0)? 11 : this.state.month - 1;
 		let year = (this.state.month == 0)? this.state.year - 1 : this.state.year;
-		this.setState({ month, year }, this.getHolidays)
+		this.setState({ month, year, day : 1 }, this.getHolidays)
 	}
 
 
@@ -123,6 +134,15 @@ class Layout extends React.Component {
 						<button onClick={this.increaseMonth.bind(this)} > Next Month </button>
 					</div>
 				)
+			break;
+			case 'day':
+				controls = (
+					<div>
+						<button onClick={this.decreaseDay.bind(this)} > Previous Day </button>
+						<button onClick={this.increaseDay.bind(this)} > Next Day </button>
+					</div>
+				)
+				layout = <Day day={this.calendar.getDay(this.state.year, this.state.month, this.state.day)} holidays={this.state.holidays.holidays} template="table"/>
 			break;
 		}
 

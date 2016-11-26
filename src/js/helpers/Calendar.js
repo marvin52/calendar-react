@@ -17,6 +17,43 @@ export default class Calendar {
     ];
   }
 
+  getNextDay({year, month, day}){
+    let monthObj = this.getMonth(year, month), nextDay;
+    if(day == monthObj.days){
+      nextDay = {
+        year: month == 11 ? year + 1 : year,
+        month: month == 11 ? 0 : month + 1,
+        day: 1
+      }
+    } else {
+      nextDay = {
+        year,
+        month,
+        day: day + 1
+      }
+    }
+    return nextDay;
+  }
+
+  getPrevDay({year, month, day}){
+    let prevMonthObj = this.getMonth(month == 0 ? year - 1 : year, month == 0 ? 11 : month  - 1),
+        prevDay;
+    if(day == 1){
+      prevDay = {
+        year: prevMonthObj.year,
+        month: prevMonthObj.month,
+        day: prevMonthObj.days
+      }
+    } else {
+      prevDay = {
+        year,
+        month,
+        day: day - 1
+      }
+    }
+    return prevDay;
+  }
+
   leapYear(year) {
     return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)
   }
@@ -52,6 +89,15 @@ export default class Calendar {
     }
   }
 
+  getDay(year, monthIndex, day){
+    return { 
+              day,
+              weekDay : this.weekDay(year, monthIndex, day),
+              year,
+              month : monthIndex,
+              monthObj : this.getMonth(year, monthIndex)
+            }
+  }
 
   renderMonth(monthObject) {
 
