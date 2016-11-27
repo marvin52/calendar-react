@@ -1,24 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Calendar from "./../helpers/Calendar"
+import React from "react"
+import CalendarHelper from "./../helpers/Calendar"
 import Week from "./Week"
 import Sub from "./Sub"
 
 export default class Month extends React.Component {
 	constructor(){
 		super();
-		this.calendar = new Calendar();
+		this.calendar = new CalendarHelper();
 	}
 
 	render(){
-		let weeks = [];
 		let holidaysText = [];
 		let month = this.calendar.getMonth(this.props.month.year, this.props.month.month)
 		let renderMonth = this.calendar.renderMonth(month)
 
-		renderMonth.weeks.forEach((item, index) => {
-			weeks.push(<Week key={index} week={item} holidays={this.props.holidays} public={this.props.public}/>)
-		})
+		let weeks = renderMonth.weeks.map((item, index) => <Week key={index} week={item} holidays={this.props.holidays} public={this.props.public}/>)
+		
 		if(this.props.holidays){
 			let h = Object.keys(this.props.holidays)
 				.filter( (h, v) => {

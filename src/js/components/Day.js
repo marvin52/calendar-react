@@ -1,20 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Calendar from "./../helpers/Calendar"
+import React from "react"
 import Sub from "./Sub"
 
 export default class Day extends React.Component {
-	constructor(){
-		super();
-		this.calendar = new Calendar();
-	}
-
 	render(){
 		let holidaysText = [];
 		let {day, year, month, monthObj} = this.props.day
-		let h = this.props.holidays
 		let dayDate = new Date(year, month, day).toISOString().split('T')[0]
-		let hasHoliday = (day !== null && h && typeof h[dayDate] !== 'undefined')
+		let hasHoliday = (day && this.props.holidays && this.props.holidays[dayDate])
 
 		let dayTd = (
 			<td className={(hasHoliday) ? 'calendar__day calendar__day--has-holiday' : 'calendar__day'}>
@@ -22,19 +14,8 @@ export default class Day extends React.Component {
 			</td>
 		)
 
-		if(this.props.holidays){
-			let h = Object.keys(this.props.holidays)
-				.filter( h => h.indexOf(dayDate) !== -1)
-				.map(h => this.props.holidays[h])
-			let count = 0
-			h.forEach(d => {
-				d.forEach(hl => {
-					if(hl.date){
-						holidaysText.push(<Sub hl={hl} key={count++}/>)
-					}
-				})
-			})
-		}
+		if(	this.props.holidays && this.props.template === "table" && hasHoliday)
+			holidaysText = this.props.holidays[dayDate].map((hl, i) => <Sub hl={hl} key={i}/>);
 
 		switch(this.props.template){
 			case "td":

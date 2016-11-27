@@ -1,12 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import Calendar from "./../helpers/Calendar"
 
 export default class SelectCountry extends React.Component {
-	constructor(){
-		super();
-	}
-
 	static get countries(){
 		return {
 			"AR": "Argentina",

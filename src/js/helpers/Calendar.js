@@ -1,4 +1,4 @@
-export default class Calendar {
+export default class CalendarHelper {
 
   constructor(){
     this.months = [
@@ -167,12 +167,3 @@ export default class Calendar {
   }
 
 }
-
-/**
- {
-    "name": "Independence Day",
-    "date": "2015-07-04"
-    "observed": "2015-07-03"
-    "public": true,
-  }
- */
