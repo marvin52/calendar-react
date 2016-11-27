@@ -1,15 +1,19 @@
+
+
 html, body {
 	background : #fefefe;
+	font-family: 'Open Sans', sans-serif;
 }
 .controls {
-	width : 100%;
-	display: block
+	min-width: 400px;
+	flex-grow: 1;
 }
 .calendar {
 	display: flex;
 	flex-wrap: wrap;
 	background: #fff;
 	justify-content: space-around;
+	flex-grow: 3;
 }
 .calendar__month, .calendar__day-view {
 	padding: 10px 15px;
@@ -20,27 +24,31 @@ html, body {
 }
 .calendar__month-name, .calendar__year-month-name {
 	text-align: center;
-	background : #447;
+	background : #2C3E50;
 	height: 25px;
-	color: white;
+	color: #ECF0F1;
 }
 .calendar__week-days, .calendar__day {
-	background: #ccddcc;
+	background: #2980B9;
 	text-align: center;
+	color: #2C3E50;
+}
+.calendar__week-days {
+	color: #ECF0F1;
 }
 .calendar__weeks td, .calendar__day td {
-	background: #fafafa;
+	background: #ECF0F1;
 	text-align: center;
 	padding: 5px;
-	border: 1px solid #ccc;
 }
 .calendar__day--has-holiday {
-	background: #a7e8bc !important;
-	color: white;
+	background: #E74C3C !important;
+	color: #ECF0F1;
 }
-.holiday-sub{
+.calendar__holiday-sub{
 	font-size: 10px;
-    line-height: 6px;
+    line-height: 10px;
+    color: #E74C3C;
 }
 
 .calendar__day-view .calendar__day td{
@@ -53,4 +61,49 @@ html, body {
 }
 .calendar__day-view .calendar__year-name {
 	font-size: 40px;
+}
+.controls {
+	display: flex;
+	background: #ECF0F1;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+select {
+	background: white;
+	width: 90%;
+	padding: 5px 35px 5px 5px;
+	font-size: 16px;
+	border: 2px solid #2C3E50;
+	height: 34px;
+	margin: 10px 0px;
+}
+button {
+	border-radius: 0px;
+	background-color: #E74C3C;
+	border: 0px;
+	color: #ECF0F1;
+	height: 50px;
+	width: 165px;
+	margin: 10px;
+}
+.container {
+	display: flex;
+	align-items: flex-start;
+}
+
+@media (max-width: 966px) {
+	.container {
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.controls {
+		min-width: inherit;
+		padding:20px;
+	}
+	button {
+		margin:10px 0px;
+		width: 100%;
+	}
 }

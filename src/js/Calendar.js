@@ -113,8 +113,8 @@ export default class Calendar extends React.Component {
 			case 'year':
 				controls = (
 					<div>
-						<button onClick={this.decreaseYear.bind(this)} > { '< ' + (this.state.year - 1) } </button>
-						<button onClick={this.increaseYear.bind(this)} > { (this.state.year + 1) + ' >' } </button>
+						<button onClick={this.decreaseYear.bind(this)} > Previous Year </button>
+						<button onClick={this.increaseYear.bind(this)} > Next Year </button>
 					</div>
 				)
 				layout = this.calendar.getYear(this.state.year).map(( month, index ) => <Month key={index} month={month} holidays={this.state.holidays.holidays} public={this.state.publicOnly}/>)
@@ -143,7 +143,7 @@ export default class Calendar extends React.Component {
 		return (
 			<div className="container">
 				<div className="controls">
-					{controls}
+					<h1> Calendar Controls </h1>
 					<SelectCountry callback={this.changeCountry.bind(this)} countries={this.countries} country={this.state.country}/>
 					<select defaultValue={this.state.publicOnly} onChange={this.changePublic.bind(this)}>
 						<option value={true}>Only public holidays</option>
@@ -154,6 +154,9 @@ export default class Calendar extends React.Component {
 						<option value="month">See Month</option>
 						<option value="day">See Days</option>
 					</select>
+					<div className="controls__layout-inputs">
+						{controls}
+					</div>
 				</div>
 				<div className="calendar">
 					{layout}
