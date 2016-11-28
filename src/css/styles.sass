@@ -1,52 +1,60 @@
-html, body 
-	background : #fefefe;
+$holiday-color: #E74C3C;
+$top-color : #2C3E50;
+$gray-color : #ECF0F1;
+$week-day-color : #2980B9;
+
+html, body
+	background : #fff;
 	font-family: 'Open Sans', sans-serif;
 
-.controls 
+.controls
 	min-width: 400px;
 	flex-grow: 1;
 
-.calendar 
+.calendar
 	display: flex;
 	flex-wrap: wrap;
-	background: #fff;
 	justify-content: space-around;
 	flex-grow: 3;
 
-.calendar__month, .calendar__day-view 
+.calendar__month,
+.calendar__day-view
 	padding: 10px 15px;
 	height: 240px;
 
-.calendar__day-view 
+.calendar__day-view
 	width: 270px;
 
-.calendar__month-name, .calendar__year-month-name 
+.calendar__month-name,
+.calendar__year-month-name
 	text-align: center;
-	background : #2C3E50;
+	background : $top-color;
 	height: 25px;
-	color: #ECF0F1;
+	color: $gray-color;
 
-.calendar__week-days, .calendar__day 
-	background: #2980B9;
+.calendar__week-days,
+.calendar__day
+	background: $week-day-color;
 	text-align: center;
-	color: #2C3E50;
+	color: $top-color;
 
-.calendar__week-days 
-	color: #ECF0F1;
+.calendar__week-days
+	color: $gray-color;
 
-.calendar__weeks td, .calendar__day td 
-	background: #ECF0F1;
+.calendar__weeks td,
+.calendar__day td
+	background: $gray-color;
 	text-align: center;
 	padding: 5px;
 
-.calendar__day--has-holiday 
-	background: #E74C3C !important;
-	color: #ECF0F1;
+.calendar__day--has-holiday
+	background: $holiday-color !important;
+	color: $gray-color;
 
 .calendar__holiday-sub
 	font-size: 10px;
 	line-height: 10px;
-	color: #E74C3C;
+	color: $holiday-color;
 
 
 .calendar__day-view .calendar__day td
@@ -57,51 +65,53 @@ html, body
 	font-size: 20px;
 	padding: 10px;
 
-.calendar__day-view .calendar__year-name 
+.calendar__day-view .calendar__year-name
 	font-size: 40px;
 
-.controls 
+.controls
 	display: flex;
-	background: #ECF0F1;
+	background: $gray-color;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
 
-select 
-	background: white;
-	width: 90%;
-	padding: 5px 35px 5px 5px;
-	font-size: 16px;
-	border: 2px solid #2C3E50;
-	height: 34px;
-	margin: 10px 0px;
+	select
+		background: white;
+		width: 90%;
+		padding: 5px 35px 5px 5px;
+		font-size: 16px;
+		border: 2px solid $top-color;
+		height: 34px;
+		margin: 10px 0px;
 
-button 
-	border-radius: 0px;
-	background-color: #E74C3C;
-	border: 0px;
-	color: #ECF0F1;
-	height: 50px;
-	width: 165px;
-	margin: 10px;
+	button
+		border-radius: 0px;
+		background-color: $holiday-color;
+		border: 0px;
+		color: $gray-color;
+		height: 50px;
+		width: 165px;
+		margin: 10px;
+		cursor: pointer;
 
-.container 
+		&:hover
+			opacity: .9;
+
+.container
 	display: flex;
 	align-items: flex-start;
 
 
-@media (max-width: 966px) 
-	.container 
+@media (max-width: 966px)
+	.container
 		flex-direction: column;
 		justify-content: space-around;
 		align-items: center;
-	
-	.controls 
+
+	.controls
 		min-width: inherit;
 		padding: 20px;
-	
-	button 
-		margin: 10px 0px;
-		width: 100%;
-	
 
+		button
+			margin: 10px 0px;
+			width: 100%;

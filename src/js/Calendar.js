@@ -1,5 +1,6 @@
 import React from "react";
 import CalendarHelper from "./helpers/Calendar"
+import Helpers from "./helpers/Helpers"
 import Holiday from "./helpers/Holiday"
 import Month from "./components/Month"
 import Day from "./components/Day"
@@ -11,7 +12,8 @@ export default class Calendar extends React.Component {
 	constructor(){
 		super();
 		this.calendar = new CalendarHelper();
-		this.holiday = new Holiday();
+    this.holiday = new Holiday('ffad917e-ddfe-4227-800e-74dcc0c3dd97');
+		this.helpers = new Helpers();
 		let date = new Date();
 
 		this.state = {
@@ -24,24 +26,15 @@ export default class Calendar extends React.Component {
 			visualization: 'year'
 		}
 
+    this.countries = SelectCountry.countries
+
+    this.bindEvents()
 		this.getHolidays();
-		this.countries = SelectCountry.countries
 	}
 
-	bool(str) {
-	    if (typeof str === 'boolean') {
-	      return str;
-	    } else if (str === null || str === undefined) {
-	      return false;
-	    }
-
-	    if (str.match(/(false)/)) {
-	      return false;
-	    } else if (str.match(/(true)/)[1]) {
-	      return true;
-	    }
-	    return false
-	  }
+  bindEvents(){
+    this.helpers.on('get::holidays', Helpers.debounce(this.getHolidays.bind(this)), 250)
+  }
 
 	increaseDay(){
 		let day = this.calendar.getNextDay(this.state)
@@ -59,8 +52,6 @@ export default class Calendar extends React.Component {
 		this.setState({ month, year, day : 1 }, this.getHolidays)
 	}
 
-
-
 	decreaseMonth() {
 		let month = (this.state.month == 0)? 11 : this.state.month - 1;
 		let year = (this.state.month == 0)? this.state.year - 1 : this.state.year;
@@ -68,15 +59,26 @@ export default class Calendar extends React.Component {
 	}
 
 
+  getHolidaysYear(){
+      if(this.holiday.checkInLs({
+        countryCode : this.state.country,
+        year : this.state.year,
+        onlyPublic : this.state.publicOnly }))
+      {
+        this.getHolidays()
+      }else{
+        this.helpers.emit('get::holidays')
+      }
+  }
 
 	increaseYear() {
-		this.setState({ year : this.state.year + 1 }, this.getHolidays)
+		this.setState({ year : this.state.year + 1 }, this.getHolidaysYear)
 	}
 
 
 
 	decreaseYear() {
-		this.setState({ year : this.state.year - 1 }, this.getHolidays);
+		this.setState({ year : this.state.year - 1 }, this.getHolidaysYear)
 	}
 
 
@@ -91,23 +93,22 @@ export default class Calendar extends React.Component {
 
 
 	changePublic(e) {
-		this.setState({publicOnly : this.bool(e.target.value) }, this.getHolidays)
+		this.setState({publicOnly : Helper.bool(e.target.value) }, this.getHolidays)
 	}
 
 
 	getHolidays() {
-		this.holiday
-			.getCountryHolidays({ countryCode : this.state.country,
-								  year : this.state.year,
-								  onlyPublic : this.state.publicOnly})
-			.then(data => {
-				let holidays = JSON.parse(data)
-				this.setState({ holidays })
-			})
-	}
+    this.holiday
+      .getCountryHolidays({ countryCode : this.state.country,
+                  year : this.state.year,
+                  onlyPublic : this.state.publicOnly})
+      .then(data => {
+        let holidays = JSON.parse(data)
+        this.setState({ holidays })
+      });
+  }
 
-
-	render(){
+  render(){
 		let layout, controls
 		switch(this.state.visualization){
 			case 'year':

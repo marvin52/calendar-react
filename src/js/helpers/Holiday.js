@@ -9,8 +9,8 @@
  */
 
 export default class Holiday {
-	constructor() {
-		this.apiKey = 'ffad917e-ddfe-4227-800e-74dcc0c3dd97'
+	constructor(apiKey) {
+		this.apiKey = apiKey;
 		this.apiUrl = 'https://holidayapi.com/v1/holidays'
 	}
 
@@ -19,29 +19,32 @@ export default class Holiday {
 	}
 
 	set key(newApiKey){
-		this.apiKey = newApiKey
+    this.apiKey = newApiKey
 	}
+
+  checkInLs({countryCode = 'BR', year = 2016, onlyPublic = false }){
+    return localStorage.getItem(`${countryCode}::${year}::${onlyPublic}`) !== null
+  }
 
 	getCountryHolidays({countryCode = 'BR', year = 2016, onlyPublic = false }){
 	  return new Promise((fulfill, reject) => {
-	  	if(localStorage.getItem(`${countryCode}::${year}::${onlyPublic}`)){
-	  		fulfill(localStorage[`${countryCode}::${year}::${onlyPublic}`], true)
-	  		return;
-		  }
+	  	if(this.checkInLs({countryCode, year, onlyPublic})){
+	  		fulfill(localStorage[`${countryCode}::${year}::${onlyPublic}`])
+		  } else {
+  		  const req = new XMLHttpRequest()
+  		  req.open('GET', `${this.apiUrl}?key=${this.key}&year=${year}&country=${countryCode}&public=${onlyPublic}`)
 
-		  const req = new XMLHttpRequest()
-		  req.open('GET', `${this.apiUrl}?key=${this.key}&year=${year}&country=${countryCode}&public=${onlyPublic}`)
+  	    req.onload = () => {
+          localStorage[`${countryCode}::${year}::${onlyPublic}`] = req.response
+          fulfill(req.response, false)
+  	    }
+        req.onerror = () => {
+          reject(Error(req.statusText))
+        }
 
-	    req.onload = function () {
-	      if (req.status == 200) {
-	      	localStorage[`${countryCode}::${year}::${onlyPublic}`] = req.response
-	        fulfill(req.response, false)
-	      } else {
-	        reject(Error(req.statusText))
-	      }
-	    }
+  		  req.send()
+      }
 
-		  req.send()
 	  })
 	}
 

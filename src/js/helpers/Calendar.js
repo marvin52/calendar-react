@@ -90,13 +90,13 @@ export default class CalendarHelper {
   }
 
   getDay(year, monthIndex, day){
-    return { 
-              day,
-              weekDay : this.weekDay(year, monthIndex, day),
-              year,
-              month : monthIndex,
-              monthObj : this.getMonth(year, monthIndex)
-            }
+    return {
+      day,
+      weekDay : this.weekDay(year, monthIndex, day),
+      year,
+      month : monthIndex,
+      monthObj : this.getMonth(year, monthIndex)
+    }
   }
 
   renderMonth(monthObject) {

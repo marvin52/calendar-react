@@ -8,7 +8,8 @@ describe('Test Holiday class helper', function(){
 
 		beforeEach(function(){
 			localStorage.clear();
-			this.holiday = new Holiday();
+			this.holiday = new Holiday('ffad917e-ddfe-4227-800e-74dcc0c3dd97');
+      this.specObj = { countryCode: 'AR', year: 2019, onlyPublic: true }
 		})
 
 		afterEach(function(){
@@ -19,24 +20,32 @@ describe('Test Holiday class helper', function(){
 			expect(this.holiday.getCountryHolidays({}) instanceof Promise).toBe(true)
 		});
 
-		it('- Might execute success callback after resolving the promise', function(){
-			let successTest = (data) => { expect(data).toBeDefined() }
+		it('- Might execute success callback after resolving the promise', function(done){
+			let successTest = (data) => {
+        expect(data).toBeDefined();
+        done();
+      }
 
 			this.holiday
-				.getCountryHolidays({})
+				.getCountryHolidays(this.specObj)
 				.then(successTest)
+        .catch(function(e){
+          done()
+        })
 		});
 
-		it('- Should execute te error callback after resolving the promise', function(){
-			this.holiday.key = 'teste'
+		it('- Should execute te error callback after resolving the promise', function(done){
+			this.holiday.key = 'invalid key'
 
 			let errorTest = (error) => {
-				expect(error).toThrow();
+				expect(error instanceof Error).toBeTruthy();
+        done()
 			}
 
 			this.holiday
-				.getCountryHolidays({})
-				.then(errorTest)
+				.getCountryHolidays(this.specObj)
+        .then()
+				.catch(errorTest)
 		})
 
 		it('- Test getter and setter for api key config', function(){
@@ -51,24 +60,52 @@ describe('Test Holiday class helper', function(){
 			expect(this.holiday.key).toEqual('teste')
 		})
 
-		it('- Test if localStorage is receiving the json data', function(){
-			let { countryCode, year, onlyPublic } = this.specObj = { countryCode: 'AR', year: 2019, onlyPublic: true } 
-			let ajaxTest = (data, fromCache) => { 
-				expect(localStorage.getItem(`${countryCode}::${year}::${onlyPublic}`)).not.toEqual(null)
-				expect(localStorage.getItem(`${countryCode}::2029::${onlyPublic}`)).toEqual(null)
-				expect(fromCache).toBe(false)
-			}
-			let lsTest = (data, fromCache) => { expect(fromCache).toBe(true) }
+		it('- Test if localStorage is receiving the json data', function(done){
+      let { countryCode, year, onlyPublic } = this.specObj;
+
+      let ajaxTest = (data) => {
+        expect(JSON.parse(data) instanceof Object).toBeTruthy()
+        expect(localStorage.getItem(`${countryCode}::${year}::${onlyPublic}`)).not.toEqual(null)
+        expect(this.holiday.checkInLs(this.specObj)).toBeTruthy()
+        expect(localStorage.getItem(`${countryCode}::2029::${onlyPublic}`)).toEqual(null)
+
+
+        this.holiday
+        .getCountryHolidays(this.specObj)
+        .then(function(data){
+          expect(JSON.parse(data) instanceof Object).toBeTruthy()
+          done();
+        })
+
+
+      }
 
 			this.holiday
 				.getCountryHolidays(this.specObj)
 				.then(ajaxTest)
 
 
-			this.holiday
-				.getCountryHolidays(this.specObj)
-				.then(lsTest)
 		})
+
+    it('- Test error handling of promise', function(done){
+      this.holiday.key = 'invalid key'
+
+      this.specObj = {
+        countryCode: 'BR',
+        year: 2019,
+        onlyPublic: true
+      }
+
+
+      this.holiday
+        .getCountryHolidays(this.specObj)
+        .catch(function(error){
+          expect(error instanceof Error).toBeTruthy()
+          done();
+        })
+
+
+    })
 	})
 
 
