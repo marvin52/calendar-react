@@ -1,75 +1,73 @@
-
-
-html, body {
+html, body 
 	background : #fefefe;
 	font-family: 'Open Sans', sans-serif;
-}
-.controls {
+
+.controls 
 	min-width: 400px;
 	flex-grow: 1;
-}
-.calendar {
+
+.calendar 
 	display: flex;
 	flex-wrap: wrap;
 	background: #fff;
 	justify-content: space-around;
 	flex-grow: 3;
-}
-.calendar__month, .calendar__day-view {
+
+.calendar__month, .calendar__day-view 
 	padding: 10px 15px;
 	height: 240px;
-}
-.calendar__day-view {
+
+.calendar__day-view 
 	width: 270px;
-}
-.calendar__month-name, .calendar__year-month-name {
+
+.calendar__month-name, .calendar__year-month-name 
 	text-align: center;
 	background : #2C3E50;
 	height: 25px;
 	color: #ECF0F1;
-}
-.calendar__week-days, .calendar__day {
+
+.calendar__week-days, .calendar__day 
 	background: #2980B9;
 	text-align: center;
 	color: #2C3E50;
-}
-.calendar__week-days {
+
+.calendar__week-days 
 	color: #ECF0F1;
-}
-.calendar__weeks td, .calendar__day td {
+
+.calendar__weeks td, .calendar__day td 
 	background: #ECF0F1;
 	text-align: center;
 	padding: 5px;
-}
-.calendar__day--has-holiday {
+
+.calendar__day--has-holiday 
 	background: #E74C3C !important;
 	color: #ECF0F1;
-}
-.calendar__holiday-sub{
+
+.calendar__holiday-sub
 	font-size: 10px;
-    line-height: 10px;
-    color: #E74C3C;
-}
+	line-height: 10px;
+	color: #E74C3C;
 
-.calendar__day-view .calendar__day td{
+
+.calendar__day-view .calendar__day td
 	font-size: 100px;
-}
 
-.calendar__day-view .calendar__year-month-name td{
+
+.calendar__day-view .calendar__year-month-name td
 	font-size: 20px;
 	padding: 10px;
-}
-.calendar__day-view .calendar__year-name {
+
+.calendar__day-view .calendar__year-name 
 	font-size: 40px;
-}
-.controls {
+
+.controls 
 	display: flex;
 	background: #ECF0F1;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-}
-select {
+
+select 
 	background: white;
 	width: 90%;
 	padding: 5px 35px 5px 5px;
@@ -77,8 +75,8 @@ select {
 	border: 2px solid #2C3E50;
 	height: 34px;
 	margin: 10px 0px;
-}
-button {
+
+button 
 	border-radius: 0px;
 	background-color: #E74C3C;
 	border: 0px;
@@ -86,24 +84,24 @@ button {
 	height: 50px;
 	width: 165px;
 	margin: 10px;
-}
-.container {
+
+.container 
 	display: flex;
 	align-items: flex-start;
-}
 
-@media (max-width: 966px) {
-	.container {
+
+@media (max-width: 966px) 
+	.container 
 		flex-direction: column;
 		justify-content: space-around;
 		align-items: center;
-	}
-	.controls {
+	
+	.controls 
 		min-width: inherit;
-		padding:20px;
-	}
-	button {
-		margin:10px 0px;
+		padding: 20px;
+	
+	button 
+		margin: 10px 0px;
 		width: 100%;
-	}
-}
+	
+
