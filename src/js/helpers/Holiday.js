@@ -9,43 +9,42 @@
  */
 
 export default class Holiday {
-	constructor(apiKey) {
-		this.apiKey = apiKey;
-		this.apiUrl = 'https://holidayapi.com/v1/holidays'
-	}
-
-	get key(){
-		return this.apiKey
-	}
-
-	set key(newApiKey){
-    this.apiKey = newApiKey
-	}
-
-  checkInLs({countryCode = 'BR', year = 2016, onlyPublic = false }){
-    return localStorage.getItem(`${countryCode}::${year}::${onlyPublic}`) !== null
+  constructor(apiKey) {
+    this.apiKey = apiKey;
+    this.apiUrl = 'https://holidayapi.com/v1/holidays';
   }
 
-	getCountryHolidays({countryCode = 'BR', year = 2016, onlyPublic = false }){
-	  return new Promise((fulfill, reject) => {
-	  	if(this.checkInLs({countryCode, year, onlyPublic})){
-	  		fulfill(localStorage[`${countryCode}::${year}::${onlyPublic}`])
-		  } else {
-  		  const req = new XMLHttpRequest()
-  		  req.open('GET', `${this.apiUrl}?key=${this.key}&year=${year}&country=${countryCode}&public=${onlyPublic}`)
+  get key() {
+    return this.apiKey;
+  }
 
-  	    req.onload = () => {
-          localStorage[`${countryCode}::${year}::${onlyPublic}`] = req.response
-          fulfill(req.response, false)
-  	    }
+  set key(newApiKey) {
+    this.apiKey = newApiKey;
+  }
+
+  checkInLs({ countryCode = 'BR', year = 2016, onlyPublic = false }) {
+    return localStorage.getItem(`${countryCode}::${year}::${onlyPublic}`) !== null;
+  }
+
+  getCountryHolidays({ countryCode = 'BR', year = 2016, onlyPublic = false }) {
+    return new Promise((fulfill, reject) => {
+      if (this.checkInLs({ countryCode, year, onlyPublic })) {
+        fulfill(localStorage[`${countryCode}::${year}::${onlyPublic}`]);
+      } else {
+        const req = new XMLHttpRequest();
+        req.open('GET', `${this.apiUrl}?key=${this.key}&year=${year}&country=${countryCode}&public=${onlyPublic}`);
+
+        req.onload = () => {
+          localStorage[`${countryCode}::${year}::${onlyPublic}`] = req.response;
+          fulfill(req.response, false);
+        };
         req.onerror = () => {
-          reject(Error(req.statusText))
-        }
+          reject(Error(req.statusText));
+        };
 
-  		  req.send()
+        req.send();
       }
-
-	  })
-	}
+    });
+  }
 
 }

@@ -6,7 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : null,
-  entry: "./js/client.js",
+  entry: "./js/client.jsx",
   module: {
     loaders: [
       {
@@ -27,6 +27,9 @@ module.exports = {
   output: {
     path: __dirname + "/dist/js/",
     filename: "client.min.js"
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   plugins: debug ? [new ExtractTextPlugin('./../css/style.css', { allChunks: true })] : [
     new webpack.optimize.DedupePlugin(),

@@ -1,24 +1,23 @@
 
-import EventEmitter from 'events'
+import EventEmitter from 'events';
 
 export default class Helpers extends EventEmitter {
-  constructor(){
-    super();
-  }
 
   static bool(str) {
-    switch(!0){
+    switch (!0) {
       case typeof str === 'boolean' :
         return str;
-      break;
-      case str.match(/(true)/)[1] :
+        break;
+      case str === 'true':
+      case str.match(/(true)/) :
         return true;
-      break;
+        break;
       default:
+      case str === 'false':
       case str.match(/(false)/) :
       case str === null || str === undefined :
         return false;
-      break;
+        break;
     }
   }
 
