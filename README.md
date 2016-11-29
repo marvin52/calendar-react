@@ -15,7 +15,7 @@ Clone the repository to your local environment. See deployment for notes on how 
 -  nodeJs
 -  npm
 
-### Installing and running 
+### Installing and running
 
 After installation completed you will be able to run ```npm start``` and visit ```http://localhost:8080``` to use the application.
 
@@ -44,3 +44,6 @@ Running this command you will be good to go. A wepack server will be started and
 
 * [Marvin Medeiros](https://github.com/marvin52)
 
+### TODO
+
+*	Test react components with [JEST](https://facebook.github.io/jest/)
