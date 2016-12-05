@@ -6,7 +6,7 @@ A simple calendar built in ReactJS
 
 Clone the repository to your local environment. See deployment for notes on how to deploy the project on a live system.
 
-        $ git clone git@bitbucket.org:marvin52/calendar.git
+        $ git clone git@github.com:marvin52/calendar-react.git
         $ cd calendar
 
 
